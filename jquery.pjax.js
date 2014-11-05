@@ -297,7 +297,13 @@ function pjax(options) {
       pjax.state.url = url.href
       window.history.replaceState(pjax.state, container.title, url.href)
 
-      var target = $(url.hash)
+      // Throws an error if hash is not an anchor link eg. #test=1&other=2
+      try {
+        var target = $(url.hash)
+      } catch (e) {
+        target = false
+      }
+
       if (target.length) $(window).scrollTop(target.offset().top)
     }
 
